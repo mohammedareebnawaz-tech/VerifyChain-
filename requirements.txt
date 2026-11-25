@@ -1,0 +1,1 @@
+# VerifyChain uses only the Python standard library — no packages needed.

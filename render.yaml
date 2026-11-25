@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: verifychain
+    runtime: python
+    region: singapore          # closest to India; change to ohio / frankfurt / oregon as needed
+    plan: free                 # upgrade to starter/standard for persistent disk
+
+    buildCommand: "echo 'No dependencies to install'"
+    startCommand: "python app.py"
+
+    # Render injects PORT automatically; NO_BROWSER stops the headless open attempt
+    envVars:
+      - key: NO_BROWSER
+        value: "1"
+      - key: RENDER
+        value: "1"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+    # Persistent disk so chain.json survives deploys and restarts.
+    # Remove this block if you are on the free plan (free plan has no disk support).
+    disk:
+      name: verifychain-data
+      mountPath: /opt/render/project/src
+      sizeGB: 1
